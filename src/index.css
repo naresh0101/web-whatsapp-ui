@@ -14,6 +14,9 @@
   right: 0;
   left: 30%;
 }
+.back-arrow{
+  display: none;
+}
 @media screen and (max-width: 824px) {
     .medium-and-large-screen {
       /* background-color: lightgreen; */
@@ -21,7 +24,10 @@
     }
     .ChatInputs{
       left: 0;
-    } 
+    }
+    .back-arrow{
+      display: block;
+    }
 }
 
 @media screen and (min-width: 824px) {

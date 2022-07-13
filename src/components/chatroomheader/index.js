@@ -7,7 +7,7 @@ const ChatRoomHeader = ({ activeroom }) => {
     return (
         <header className="h-14 pl-2 bg-[#f0f2f5] dark:bg-[#2a3942] flex justify-between">
             <button className="cursor-pointer text-[#54656f] flex justify-start items-center h-full">
-                <button onClick={() => { setActiveRoom(null) }} className="sm:hidden cursor-pointer rounded-full h-10 w-10">
+                <button onClick={() => { setActiveRoom(null) }} className="back-arrow cursor-pointer rounded-full h-10 w-10">
                     <span data-testid="back" data-icon="back" className="text-[#54656f] dark:text-[#aebac1]"><svg viewBox="0 0 24 24" width="24" height="24" class=""><path fill="currentColor" d="m12 4 1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path></svg></span>
                 </button>
                 <img className="w-10 h-10 rounded-full contain" alt={`${activeroom?.first_name} ${activeroom?.last_name}`} src={activeroom?.avatar} />

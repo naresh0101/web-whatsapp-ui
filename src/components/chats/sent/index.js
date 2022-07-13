@@ -4,7 +4,7 @@
 const SentChat = ({continousSent,chat}) => {
     return (
         <li className="flex justify-end m-2">
-            <div className="relative max-w-xl px-2 text-gray-700 dark:bg-[#015c4b] bg-[#d9fdd2] rounded-[8px]">
+            <div className="shadow relative max-w-xl px-2 text-gray-700 dark:bg-[#015c4b] bg-[#d9fdd2] rounded-[8px]">
                {continousSent && <div className="absolute w-0 h-0 border-t-[2px] border-t-transparent border-b-[12px] border-b-transparent border-l-[16px] border-l-[#d9fdd2] dark:border-l-[#015c4b] left-[100%] top-[0] translate-y-[10%]"></div>}
                 <div>
                     <div className="pt-1 mr-14">
