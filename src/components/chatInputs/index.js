@@ -21,11 +21,8 @@ const ChatInputs = () => {
             time: moment().format('LT')
         }
         copypreState.chats.push(template)
-        document.querySelector('#ui-chat').scrollTop = document.querySelector('#ui-chat').scrollHeight
-
         setChatbot(copypreState)
         let res = await getWeatherInfo(cityname)
-
         await formateWeatherResult(res)
     }
 
@@ -44,7 +41,7 @@ const ChatInputs = () => {
 
     const getWeatherInfo = async (cityname) => {
         try {
-            let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityname}?unitGroup=metric&key=875ETCNK7T3YBBDY4AVVJD6XP&contentType=json`
+            let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityname}?unitGroup=metric&key=${process.env.REACT_APP_API_KEY}&contentType=json`
             let res = await axios.get(url)
             return res.data
         } catch (error) {

@@ -16,17 +16,17 @@ const MainLayout = () => {
                     <Sidebar />
                 </div>
                 <div className="w-[70%]">
-                    {activeroom === null ? <WhenNoActiveRoom /> : <div>
-                        <UserChatroom />
+                    {activeroom === null ? <WhenNoActiveRoom /> : <>
+                        <UserChatroom/>
                         <ChatInputs />
-                    </div>}
+                    </>}
                 </div>
             </div>
             {/* for mobile view */}
             {/* small-screen */}
             <div className="small-screen w-full p-0 m-0 overflow-hidden h-[100vh]">
                 {activeroom !== null ? <div>
-                    <UserChatroom />
+                    <UserChatroom/>
                     <ChatInputs />
                 </div> : <Sidebar />}
             </div>
