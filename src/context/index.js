@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { createContext, useState } from "react";
 export const AppContext = createContext();
 
@@ -11,7 +12,7 @@ const room = {
             "message": "Enter the name of a city - Delhi or Lucknow or New York",
             "isSent": false,
             "template": false,
-            "time": "6:32 AM",
+            "time": moment().format('LT'),
         }
     ]
 }

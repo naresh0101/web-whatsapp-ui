@@ -2,20 +2,20 @@ import moment from "moment"
 
 
 
-const WeatherMsgByDay = ({day})=>{
+const WeatherMsgByDay = ({ day }) => {
     return (
         <div>
-           <div className="py-1 border-dashed border-b border-t border-[#374151]">
+            <div className="py-1 border-dashed border-b border-t border-[#374151]">
                 <p className="font-[500]">{moment(day?.datetime).format('LLLL')} </p>
-           </div>
+            </div>
             <p><span className="font-[500]">Conditions: </span> <span>{day?.conditions}</span></p>
-            <p><span className="font-[500]">Tem: </span> <span>{day?.temp}</span></p>
+            <p><span className="font-[500]">Tem: </span> <span> {day?.temp}</span></p>
             <p><span className="font-[500]">Temp-max: </span> <span>{day?.tempmax}</span></p>
             <p><span className="font-[500]">Temp-min: </span> <span>{day?.tempmin}</span></p>
             <p><span className="font-[500]">🌅 Sunrise: </span> <span>{day?.sunrise}</span></p>
             <p><span className="font-[500]">🌄 Sunset: </span> <span>{day?.sunset}</span></p>
             <p><span className="font-[500]">🗒️ Description: </span> <span>{day?.description}</span></p>
-            <br/>
+            <br />
         </div>
     )
 }
@@ -28,11 +28,11 @@ const WeatherResponseTemplate = ({ chat }) => {
                     <div className="pt-1 mr-14">
                         <p className="block font-bold">{chat?.message}</p>
                         <p className="block">🗺️ {chat?.resolvedAddress}</p>
-                        <br/>
+                        <br />
                         <div className="w-full">
                             {
-                                chat?.days?.map((day,i)=>{
-                                    return(
+                                chat?.days?.map((day, i) => {
+                                    return (
                                         <WeatherMsgByDay day={day} key={day?.datetime} />
                                     )
                                 })
