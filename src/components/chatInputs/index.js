@@ -1,6 +1,54 @@
-
+import { useContext, useRef } from "react"
+import axios from "axios"
+import { AppContext } from "../../context"
+import moment from "moment"
 
 const ChatInputs = () => {
+    const { setTyping, chatBot, setChatbot } = useContext(AppContext)
+    const inputMsgRef = useRef()
+
+    const handeOnSubmit = async (e) => {
+        setTyping(true)
+        e.preventDefault()
+        let copypreState = chatBot
+        let template = {
+            id:copypreState.chats.length,
+            template: false,
+            isSent: true, 
+            message: inputMsgRef.current.value, 
+            time: moment().format('LT')
+        }
+        copypreState.chats.push(template)
+        setChatbot(copypreState) 
+        let res =  await getWeatherInfo(inputMsgRef.current.value)
+        await formateWeatherResult(res)
+    }
+
+    const formateWeatherResult = (result) => {
+        let { resolvedAddress, description, days } = result
+        let copypreState = chatBot
+        let template = {
+            id:copypreState.chats.length,
+            resolvedAddress, message:description, days,
+            template: true, time: moment().format('LT')
+        }
+        copypreState.chats.push(template)
+        setChatbot(copypreState)
+        setTyping(false)
+        inputMsgRef.current.value = ''
+    }
+
+    const getWeatherInfo = async (cityname) => {
+        try {
+            let url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${cityname}?unitGroup=metric&key=875ETCNK7T3YBBDY4AVVJD6XP&contentType=json`
+            let res = await axios.get(url)
+            return res.data
+        } catch (error) {
+            console.log(error)
+            setTyping(false)
+        }
+    }
+
     return (
         <footer className="ChatInputs bg-[#f0f2f5] dark:bg-[#1f2c33] flex items-center justify-between sm:w-[100%] p-2">
             <button className="cursor-pointer rounded-full h-10 w-10">
@@ -9,8 +57,8 @@ const ChatInputs = () => {
             <button className="cursor-pointer rounded-full h-10 w-10">
                 <svg viewBox="0 0 24 24" width="24" height="24" className="text-[#54656f] dark:text-[#aebac1]"><path fill="currentColor" d="M1.816 15.556v.002c0 1.502.584 2.912 1.646 3.972s2.472 1.647 3.974 1.647a5.58 5.58 0 0 0 3.972-1.645l9.547-9.548c.769-.768 1.147-1.767 1.058-2.817-.079-.968-.548-1.927-1.319-2.698-1.594-1.592-4.068-1.711-5.517-.262l-7.916 7.915c-.881.881-.792 2.25.214 3.261.959.958 2.423 1.053 3.263.215l5.511-5.512c.28-.28.267-.722.053-.936l-.244-.244c-.191-.191-.567-.349-.957.04l-5.506 5.506c-.18.18-.635.127-.976-.214-.098-.097-.576-.613-.213-.973l7.915-7.917c.818-.817 2.267-.699 3.23.262.5.501.802 1.1.849 1.685.051.573-.156 1.111-.589 1.543l-9.547 9.549a3.97 3.97 0 0 1-2.829 1.171 3.975 3.975 0 0 1-2.83-1.173 3.973 3.973 0 0 1-1.172-2.828c0-1.071.415-2.076 1.172-2.83l7.209-7.211c.157-.157.264-.579.028-.814L11.5 4.36a.572.572 0 0 0-.834.018l-7.205 7.207a5.577 5.577 0 0 0-1.645 3.971z"></path></svg>
             </button>
-            <form className="w-full px-4 mx-2 bg-white dark:bg-[#2a3942] h-10 rounded-[10px] flex items-center">
-                <input type="text" placeholder="Type a message"
+            <form onSubmit={handeOnSubmit} className="w-full px-4 mx-2 bg-white dark:bg-[#2a3942] h-10 rounded-[10px] flex items-center">
+                <input ref={inputMsgRef} type="text" placeholder="Type a message"
                     className="w-full dark:bg-[#2a3942] placeholder-[#8697a0] text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                     name="message" required />
             </form>

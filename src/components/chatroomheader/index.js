@@ -2,13 +2,13 @@ import { useContext } from "react";
 import { AppContext } from '../../context'
 
 const ChatRoomHeader = ({ activeroom }) => {
-    const { setActiveRoom } = useContext(AppContext)
+    const { setActiveRoom,typing } = useContext(AppContext)
 
     return (
         <header className="h-14 pl-2 bg-[#f0f2f5] dark:bg-[#2a3942] flex justify-between">
-            <button className="cursor-pointer text-[#54656f] flex justify-start items-center h-full">
+            <div className="cursor-pointer text-[#54656f] flex justify-start items-center h-full">
                 <button onClick={() => { setActiveRoom(null) }} className="back-arrow cursor-pointer rounded-full h-10 w-10">
-                    <span data-testid="back" data-icon="back" className="text-[#54656f] dark:text-[#aebac1]"><svg viewBox="0 0 24 24" width="24" height="24" class=""><path fill="currentColor" d="m12 4 1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path></svg></span>
+                    <span data-testid="back" data-icon="back" className="text-[#54656f] dark:text-[#aebac1]"><svg viewBox="0 0 24 24" width="24" height="24" className=""><path fill="currentColor" d="m12 4 1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"></path></svg></span>
                 </button>
                 <img className="w-10 h-10 rounded-full contain" alt={`${activeroom?.first_name} ${activeroom?.last_name}`} src={activeroom?.avatar} />
                 <div className=" w-full ml-4 h-16 flex justify-start items-center">
@@ -17,11 +17,11 @@ const ChatRoomHeader = ({ activeroom }) => {
                             <p className="text-left text-slate-900 truncate font-medium dark:text-slate-200">{activeroom?.first_name} {activeroom?.last_name}</p>
                         </div>
                         <div className="flex">
-                            <p className="text-sm dark:text-slate-200">online</p>
+                            <p className="text-sm dark:text-slate-200">{typing ?'Typing ... ' :'online'}</p>
                         </div>
                     </div>
                 </div>
-            </button>
+            </div>
 
             <div className="flex justify-start items-center">
                 <button className="cursor-pointer rounded-full h-10 w-10">

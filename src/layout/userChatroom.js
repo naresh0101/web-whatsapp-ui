@@ -4,6 +4,7 @@ import ReceivedChat from "../components/chats/received";
 import SentChat from "../components/chats/sent"
 import { AppContext } from "../context";
 import { Fragment, useContext } from 'react'
+import WeatherResponseTemplate from "../components/chats/weatherResponsetemplate";
 
 const UserChatRoom = () => {
     const { activeroom } = useContext(AppContext)
@@ -28,9 +29,11 @@ const UserChatRoom = () => {
                             return (
                                 <Fragment key={chat?.id + i}>
                                     {chat?.isSent ? <SentChat
-                                        chat={chat} /> :
-                                        <ReceivedChat
+                                        chat={chat} /> : <>
+                                        {chat?.template ? <WeatherResponseTemplate  key={chat?.id + i} chat={chat} /> : <ReceivedChat
                                             chat={chat} />}
+                                    </>
+                                    }
                                 </Fragment>
                             )
                         })
